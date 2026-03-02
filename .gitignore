@@ -1,0 +1,25 @@
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 虚拟环境
+venv/
+env/
+.env
+
+# 数据目录（所有原始数据）
+data/raw/
+*.duckdb
+*.db
+
+# 报告输出
+reports/
+*.md
+
+# IDE 配置
+.vscode/
+.idea/
+
+# 其他临时文件
+*.log
+*.tmp
