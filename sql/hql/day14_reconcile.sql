@@ -1,3 +1,5 @@
+--ODS 层：视图 v_apply（原始数据，可能存在重复或未去重）
+--#DWD 层：需要创建一个视图 dwd_apply_latest，表示按 apply_id 去重取最新的申请记录（基于 update_time 或 apply_time）。
 CREATE OR REPLACE VIEW dwd_apply_latest AS
 SELECT apply_id, user_id, channel_id, amount, apply_time, update_time, dt
 FROM (
@@ -5,6 +7,7 @@ FROM (
     FROM v_apply
 ) t
 where rn = 1;
+--行数与主键数对账
 WITH ods_stats AS (
     SELECT
         COUNT(*) AS ods_rows,
@@ -34,6 +37,7 @@ FROM (
     FROM v_decision
 ) t
 where rn = 1;
+--关键字段分布对比
 WITH ods_dec AS (
     SELECT
         decision,
@@ -58,6 +62,7 @@ SELECT
 FROM ods_dec o
 FULL OUTER JOIN dwd_dec d ON o.decision = d.decision
 ORDER BY decision;
+--差异样本抽取（TopN 不一致的 apply_id）
 WITH compare AS (
     SELECT
         COALESCE(o.apply_id, d.apply_id) as apply_id,
@@ -71,6 +76,7 @@ SELECT *
 FROM compare
 WHERE ods_amount IS NULL OR dwd_amount IS NULL OR ods_amount != dwd_amount
 limit 10;
+--综合对账报表（一次扫描多指标）
 WITH ods AS (
     SELECT
         COUNT(*) AS ods_rows,

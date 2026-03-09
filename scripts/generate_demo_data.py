@@ -19,7 +19,7 @@ NUM_DECISION_PER_DAY = 5000
 
 # 生成数据的日期范围（包含起止日期）
 START_DATE = date(2024, 1, 1)
-END_DATE = date(2024, 1, 20)   # 生成 1月1日 ~ 1月10日 共10天数据
+END_DATE = date(2024, 1, 30)   # 生成1月1日~1月30日共30天数据
 
 # 随机种子（保证可重复性）
 RANDOM_SEED = 42
@@ -35,32 +35,50 @@ STRATEGY_VERSIONS = ["v1.0", "v1.1", "v2.0"]
 
 # ==================== 数据生成函数 ====================
 def generate_apply(dt: str):
-    """生成单日申请数据"""
     data = []
-    for i in range(NUM_APPLY_PER_DAY):
+    # 基础申请量
+    if dt == '2024-01-15':
+        day_apply_cnt = NUM_APPLY_PER_DAY * 2   # 申请量翻倍
+    else:
+        day_apply_cnt = NUM_APPLY_PER_DAY
+
+    for i in range(day_apply_cnt):
         apply_id = f"{dt}_{i}"
         user_id = random.choice(USERS)
         channel_id = random.choice(CHANNELS)
-        amount = random.randint(1000, 50000)
-        # 随机生成申请时间（当天内随机时分秒）
+        # 异常金额：1月25日部分金额异常
+        if dt == '2024-01-25' and i % 10 == 0:   # 每10条一条异常
+            amount = random.randint(-1000, 50000)  # 可能出现负数
+        else:
+            amount = random.randint(1000, 50000)
+
         hour = random.randint(0, 23)
         minute = random.randint(0, 59)
         second = random.randint(0, 59)
         apply_time = f"{dt} {hour:02d}:{minute:02d}:{second:02d}"
-        update_time = apply_time  # 简化，与申请时间相同
+        update_time = apply_time
         data.append((apply_id, user_id, channel_id, amount, apply_time, update_time))
     return data
 
-
 def generate_decision(dt: str):
-    """生成单日决策数据"""
     data = []
-    for i in range(NUM_DECISION_PER_DAY):
-        apply_id = f"{dt}_{i}"  # 假设与申请一一对应（简化）
-        decision = random.choice(DECISIONS)
-        reason = random.choice(REJECT_REASONS) if decision == "REJECT" else None
+    # 决策量通常应与申请量一致，但可以调整
+    if dt == '2024-01-15':
+        day_decision_cnt = NUM_DECISION_PER_DAY * 2
+    else:
+        day_decision_cnt = NUM_DECISION_PER_DAY
+
+    for i in range(day_decision_cnt):
+        apply_id = f"{dt}_{i}"
+        # 异常通过率：1月20日提高拒绝概率
+        if dt == '2024-01-20':
+            # 降低通过率，增加拒绝
+            decision = random.choices(['PASS', 'REJECT', 'REVIEW'], weights=[0.3, 0.5, 0.2])[0]
+        else:
+            decision = random.choice(DECISIONS)
+
+        reason = random.choice(REJECT_REASONS) if decision == 'REJECT' else None
         version = random.choice(STRATEGY_VERSIONS)
-        # 决策时间通常略晚于申请时间（随机滞后）
         hour = random.randint(0, 23)
         minute = random.randint(0, 59)
         second = random.randint(0, 59)
