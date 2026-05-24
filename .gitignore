@@ -13,8 +13,6 @@ data/raw/
 *.db
 
 # 报告输出
-reports/
-*.md
 
 # IDE 配置
 .vscode/
