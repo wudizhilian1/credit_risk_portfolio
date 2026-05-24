@@ -1,0 +1,61 @@
+-- 创建特征PSI监控表
+CREATE TABLE IF NOT EXISTS ads_feature_psi (
+    feature_name    VARCHAR,
+    eval_date       DATE,
+    base_date       DATE,
+    psi             DECIMAL(10,6),
+    check_time      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+delete from ads_feature_psi where eval_date = '{{eval_date}}'::DATE and base_date = '{{base_date}}'::DATE;
+
+-- 示例：计算申请金额（amount）的PSI
+WITH today AS (
+    SELECT
+        CASE
+            WHEN amount < 5000 THEN '0-5k'
+            WHEN amount < 10000 THEN '5k-10k'
+            WHEN amount < 20000 THEN '10k-20k'
+            ELSE '>20k'
+        END AS bucket,
+        COUNT(*) AS cnt
+    FROM feature_apply_broad
+    WHERE dt = '{{eval_date}}'
+    GROUP BY bucket
+),
+base AS (
+    SELECT
+        CASE
+            WHEN amount < 5000 THEN '0-5k'
+            WHEN amount < 10000 THEN '5k-10k'
+            WHEN amount < 20000 THEN '10k-20k'
+            ELSE '>20k'
+        END AS bucket,
+        COUNT(*) AS cnt
+    FROM feature_apply_broad
+    WHERE dt = '{{base_date}}'
+    GROUP BY bucket
+),
+total_today AS (SELECT SUM(cnt) AS total FROM today),
+total_base AS (SELECT SUM(cnt) AS total FROM base),
+psi_calc AS (
+    SELECT
+        COALESCE(t.bucket, b.bucket) AS bucket,
+        COALESCE(t.cnt, 0) AS cnt_today,
+        COALESCE(b.cnt, 0) AS cnt_base,
+        tt.total AS total_today,
+        tb.total AS total_base
+    FROM today t
+    FULL OUTER JOIN base b ON t.bucket = b.bucket
+    CROSS JOIN total_today tt
+    CROSS JOIN total_base tb
+)
+INSERT INTO ads_feature_psi (feature_name, eval_date, base_date, psi)
+SELECT
+    'amount' AS feature_name,
+    '{{eval_date}}'::DATE,
+    '{{base_date}}'::DATE,
+    SUM( ((cnt_today + 1e-6) / (total_today + 1e-6) - (cnt_base + 1e-6) / (total_base + 1e-6)) *
+         LN(((cnt_today + 1e-6) / (total_today + 1e-6)) / ((cnt_base + 1e-6) / (total_base + 1e-6))) ) AS psi
+FROM psi_calc;

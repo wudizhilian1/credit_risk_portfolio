@@ -19,7 +19,7 @@ NUM_DECISION_PER_DAY = 5000
 
 # 生成数据的日期范围（包含起止日期）
 START_DATE = date(2024, 1, 1)
-END_DATE = date(2024, 1, 30)   # 生成1月1日~1月30日共30天数据
+END_DATE = date(2024, 1, 1)   # 生成1月1日~1月30日共30天数据
 
 # 随机种子（保证可重复性）
 RANDOM_SEED = 42
