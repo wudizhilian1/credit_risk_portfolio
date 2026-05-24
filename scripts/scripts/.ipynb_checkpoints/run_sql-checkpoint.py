@@ -60,9 +60,6 @@ def main():
             else:
                 out_lines.append("(空结果集)\n")
         except Exception as e:
-            error_msg = f"--- 语句 {i} 执行失败 ---\n```sql\n{stmt}\n```\n错误: {e}\n"
-            out_lines.append(error_msg)
-            sys.stderr.write(error_msg)  # 新增：输出到 stderr
             out_lines.append(f"--- 语句 {i} 执行失败 ---\n```sql\n{stmt}\n```\n")
             out_lines.append(f"错误: {e}\n")
             # 提前写入失败输出，便于调试

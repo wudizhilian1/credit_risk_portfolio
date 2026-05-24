@@ -8,6 +8,18 @@ import duckdb
 import argparse
 import pathlib
 import sys
+import logging
+
+# 配置日志格式（时间、级别、消息）
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/etl.log'),  # 输出到文件
+        logging.StreamHandler()               # 同时输出到控制台
+    ]
+)
+logger = logging.getLogger(__name__)
 
 def load_sql(path: str) -> str:
     """读取 SQL 文件内容"""
@@ -68,7 +80,8 @@ def main():
             # 提前写入失败输出，便于调试
             pathlib.Path(args.out).parent.mkdir(parents=True, exist_ok=True)
             pathlib.Path(args.out).write_text("\n".join(out_lines), encoding='utf-8')
-            print(f"执行失败，已保存部分输出至 {args.out}")
+            logger.info(f"执行失败，已保存部分输出至 {args.out}")
+            # print(f"执行失败，已保存部分输出至 {args.out}")
             sys.exit(1)
 
     # 确保输出目录存在
@@ -77,7 +90,9 @@ def main():
 
     # 写入最终输出
     out_path.write_text("\n".join(out_lines), encoding='utf-8')
-    print(f"执行完成，结果已保存至 {args.out}")
+    # print(f"执行完成，结果已保存至 {args.out}")
+    logger.info(f"执行完成，结果已保存至 {args.out}")
+
 
 if __name__ == '__main__':
     main()

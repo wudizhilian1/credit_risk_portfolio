@@ -1,0 +1,41 @@
+-- reconcile_3layer_apply.sql
+-- 功能：对比 raw、ODS、DWD 三层申请表的行数和关键字段
+-- 使用方式（通过 run_sql.py）：
+--   python scripts/run_sql.py --sql sql/reconcile/reconcile_3layer_apply.sql --vars dt=2024-01-01
+
+WITH
+raw_stats AS (
+    SELECT
+        'raw' AS layer,
+        COUNT(*) AS row_cnt,
+        COUNT(DISTINCT apply_id) AS unique_apply_cnt,
+        SUM(amount::INT) AS amount_sum,
+        AVG(amount::INT) AS amount_avg
+    FROM v_apply
+    WHERE dt = '{{dt}}'
+),
+ods_stats AS (
+    SELECT
+        'ods' AS layer,
+        COUNT(*) AS row_cnt,
+        COUNT(DISTINCT apply_id) AS unique_apply_cnt,
+        SUM(amount::INT) AS amount_sum,
+        AVG(amount::INT) AS amount_avg
+    FROM ods_apply
+    WHERE dt = '{{dt}}'
+),
+dwd_stats AS (
+    SELECT
+        'dwd' AS layer,
+        COUNT(*) AS row_cnt,
+        COUNT(DISTINCT apply_id) AS unique_apply_cnt,
+        SUM(amount::INT) AS amount_sum,
+        AVG(amount::INT) AS amount_avg
+    FROM dwd_apply_latest
+    WHERE dt = '{{dt}}'
+)
+SELECT * FROM raw_stats
+UNION ALL
+SELECT * FROM ods_stats
+UNION ALL
+SELECT * FROM dwd_stats;
