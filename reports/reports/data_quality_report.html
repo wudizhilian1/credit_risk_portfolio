@@ -1,0 +1,277 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>数据质量报告</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 40px; background-color: #f6f8fa; }
+            h1 { color: #222; border-bottom: 3px solid #007bff; padding-bottom:10px; }
+            h2 { color: #007bff; margin-top:40px; }
+            h3 { color: #333; }
+            .card { background:white; padding:20px; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,0.1); margin-bottom:20px; }
+            table { border-collapse: collapse; width:100%; margin:15px 0; }
+            table, th, td { border:1px solid #ddd; padding:12px; }
+            th { background-color:#007bff; color:white; }
+            tr:nth-child(even) { background-color:#f9f9f9; }
+            img { max-width:100%; height:auto; border-radius:8px; margin:10px 0; }
+            .header-info { font-size:16px; color:#333; margin-bottom:20px; line-height:1.8; }
+        </style>
+    </head>
+    <body>
+    
+<h1>📊 数据质量报告</h1>
+<div class='header-info'>
+<b>表名：</b> feature_apply_broad<br>
+<b>总行数：</b> 154,999<br>
+<b>总列数：</b> 15<br>
+</div>
+<div class='card'>
+<h2>🧩 缺失值热力图</h2>
+<img src="images/missing_heatmap.png">
+</div>
+<div class='card'>
+<h2>📌 字段：apply_id</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>154999</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>2024-01-30_996：<b>1</b> 次</li>
+<li>2024-01-19_4805：<b>1</b> 次</li>
+<li>2024-01-19_4808：<b>1</b> 次</li>
+<li>2024-01-19_4816：<b>1</b> 次</li>
+<li>2024-01-19_4831：<b>1</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：dt</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>30</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>2024-01-15 00:00:00：<b>10,000</b> 次</li>
+<li>2024-01-20 00:00:00：<b>5,000</b> 次</li>
+<li>2024-01-03 00:00:00：<b>5,000</b> 次</li>
+<li>2024-01-02 00:00:00：<b>5,000</b> 次</li>
+<li>2024-01-04 00:00:00：<b>5,000</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：user_id</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>2000</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>user_1015：<b>111</b> 次</li>
+<li>user_516：<b>111</b> 次</li>
+<li>user_1223：<b>109</b> 次</li>
+<li>user_384：<b>108</b> 次</li>
+<li>user_1293：<b>108</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：channel_id</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>4</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>H5：<b>38,912</b> 次</li>
+<li>APP：<b>38,767</b> 次</li>
+<li>API：<b>38,760</b> 次</li>
+<li>WEB：<b>38,560</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：amount</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>46636</td></tr>
+<tr><td>均值</td><td>25478.66</td></tr>
+<tr><td>标准差</td><td>14164.57</td></tr>
+<tr><td>最小值</td><td>-924.00</td></tr>
+<tr><td>25%分位数</td><td>13213.50</td></tr>
+<tr><td>中位数</td><td>25481.00</td></tr>
+<tr><td>75%分位数</td><td>37777.50</td></tr>
+<tr><td>最大值</td><td>50000.00</td></tr>
+</table>
+<h3>分布直方图</h3>
+<img src="images/hist_amount.png">
+</div>
+<div class='card'>
+<h2>📌 字段：apply_hour</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>24</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>23：<b>7,270</b> 次</li>
+<li>22：<b>7,222</b> 次</li>
+<li>19：<b>7,077</b> 次</li>
+<li>20：<b>6,961</b> 次</li>
+<li>21：<b>6,941</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：is_weekend</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>2</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>False：<b>114,999</b> 次</li>
+<li>True：<b>40,000</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：user_apply_cnt_30d</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>57</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>76：<b>8,229</b> 次</li>
+<li>75：<b>7,385</b> 次</li>
+<li>73：<b>6,858</b> 次</li>
+<li>72：<b>6,776</b> 次</li>
+<li>78：<b>6,760</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：user_avg_amount_30d</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>1997</td></tr>
+<tr><td>均值</td><td>25480.97</td></tr>
+<tr><td>标准差</td><td>1641.93</td></tr>
+<tr><td>最小值</td><td>19684.42</td></tr>
+<tr><td>25%分位数</td><td>24386.70</td></tr>
+<tr><td>中位数</td><td>25470.19</td></tr>
+<tr><td>75%分位数</td><td>26524.30</td></tr>
+<tr><td>最大值</td><td>31910.30</td></tr>
+</table>
+<h3>分布直方图</h3>
+<img src="images/hist_user_avg_amount_30d.png">
+</div>
+<div class='card'>
+<h2>📌 字段：user_pass_rate_30d</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>32</td></tr>
+<tr><td>均值</td><td>0.23</td></tr>
+<tr><td>标准差</td><td>0.05</td></tr>
+<tr><td>最小值</td><td>0.09</td></tr>
+<tr><td>25%分位数</td><td>0.20</td></tr>
+<tr><td>中位数</td><td>0.23</td></tr>
+<tr><td>75%分位数</td><td>0.26</td></tr>
+<tr><td>最大值</td><td>0.42</td></tr>
+</table>
+<h3>分布直方图</h3>
+<img src="images/hist_user_pass_rate_30d.png">
+</div>
+<div class='card'>
+<h2>📌 字段：credit_score</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>1</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>600：<b>154,999</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：decision</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>50000</td></tr>
+<tr><td>缺失率</td><td>32.26%</td></tr>
+<tr><td>唯一值数量</td><td>3</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>REJECT：<b>35,673</b> 次</li>
+<li>PASS：<b>34,847</b> 次</li>
+<li>REVIEW：<b>34,479</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：strategy_version</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>50000</td></tr>
+<tr><td>缺失率</td><td>32.26%</td></tr>
+<tr><td>唯一值数量</td><td>3</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>v1.1：<b>35,065</b> 次</li>
+<li>v2.0：<b>34,968</b> 次</li>
+<li>v1.0：<b>34,966</b> 次</li>
+</ul>
+</div>
+<div class='card'>
+<h2>📌 字段：pred_score</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>3003</td></tr>
+<tr><td>均值</td><td>0.59</td></tr>
+<tr><td>标准差</td><td>0.17</td></tr>
+<tr><td>最小值</td><td>0.40</td></tr>
+<tr><td>25%分位数</td><td>0.45</td></tr>
+<tr><td>中位数</td><td>0.49</td></tr>
+<tr><td>75%分位数</td><td>0.69</td></tr>
+<tr><td>最大值</td><td>0.90</td></tr>
+</table>
+<h3>分布直方图</h3>
+<img src="images/hist_pred_score.png">
+</div>
+<div class='card'>
+<h2>📌 字段：bad_flag</h2>
+<table>
+<tr><th>指标</th><th>值</th></tr>
+<tr><td>缺失数量</td><td>0</td></tr>
+<tr><td>缺失率</td><td>0.00%</td></tr>
+<tr><td>唯一值数量</td><td>2</td></tr>
+</table>
+<h3>Top5 频数</h3>
+<ul>
+<li>False：<b>147,381</b> 次</li>
+<li>True：<b>7,618</b> 次</li>
+</ul>
+</div>
+</body></html>
